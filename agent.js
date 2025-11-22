@@ -22,3 +22,16 @@ const agentState = await client.agents.create({
 });
 
 console.log("Agent created with ID:", agentState.id);
+
+// Send a message to your agent
+// API Reference: https://docs.letta.com/api-reference/agents/messages/create
+const response = await client.agents.messages.create(agent.id, {
+  input: "Hello! What's your purpose?",
+});
+
+// Extract and print the assistant's response
+for (const message of response.messages) {
+  if (message.messageType === "assistant_message") {
+    console.log(`Assistant: ${message.content}`);
+  }
+}
